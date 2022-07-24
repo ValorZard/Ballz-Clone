@@ -4,7 +4,7 @@ var anchor_point_y = 10
 
 # Movement
 const SPEEDUP = 2
-const MAX_SPEED = 250
+const MAX_SPEED = 300
 
 export var speed : float = 0
 var direction := Vector2()
@@ -50,7 +50,7 @@ func _physics_process(delta : float):
 				velocity = velocity.bounce(collision_info.normal)
 			elif body is Ground:
 				current_state = BALL_STATE.STOPPED
-				emit_signal("hit_ground")
+				GameManager.emit_signal("hit_ground")
 			else:
 				velocity = velocity.bounce(collision_info.normal)
 
