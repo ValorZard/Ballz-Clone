@@ -7,3 +7,4 @@ var num_of_balls : int = 1
 
 signal hit_ground(ball)
 signal ball_shoot()
+signal all_balls_grounded()

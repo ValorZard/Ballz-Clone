@@ -43,12 +43,8 @@ func _process(delta : float):
 		$DirectionLine.clear_points()
 
 func _on_ball_shot(mouse_direction : Vector2):
-	# add in all the balls we gained on our travels
-	while(len(get_tree().get_nodes_in_group("balls")) < GameManager.num_of_balls):
-		var ball := ball_template.instance()
-		get_tree().get_root().add_child(ball)
-		ball.position = self.position
-	
+	# clear all balls from grounded in order to take off
+	grounded_balls.clear()
 	
 	for ball in get_tree().get_nodes_in_group("balls"):
 		ball.speed = MAX_SPEED
@@ -70,11 +66,24 @@ func  _on_ball_hit_ground(ball : Ball):
 		# set lead ball as the first ball that touches the ground
 		self.position = ball.position
 		lead_ball = ball
+		# add in all the balls we gained on our travels
+		while(len(get_tree().get_nodes_in_group("balls")) < GameManager.num_of_balls):
+			var new_ball := ball_template.instance()
+			get_tree().get_root().add_child(new_ball)
+			new_ball.position = self.position
+			# all of these are grounded by default
+			grounded_balls.append(new_ball)
+	
 	else:
 		# set all other ball positiosn that touch the ground to be the position of the "lead ball"
 		ball.position = lead_ball.position
 	
 	grounded_balls.append(ball)
+	print("Grounded Balls :" + str(len(grounded_balls)) + " Num of Balls :" + str(GameManager.num_of_balls))
+	
+	if len(grounded_balls) == GameManager.num_of_balls:
+		GameManager.emit_signal("all_balls_grounded")
+		print("help")
 	
 #	# spawn in new balls for the ones we deleted (oh god I should find a better way)
 #	# this will be called every time a ball hits the ground, so this will automatically account for all the balls

@@ -19,7 +19,7 @@ func _ready():
 	_spawn_row()
 	
 	# if the ball hit the ground, spawn next row
-	GameManager.connect("hit_ground", self, "_setup_next_round")
+	GameManager.connect("all_balls_grounded", self, "_setup_next_round")
 
 func _generate_row_array() -> Array:
 	var i := 0
@@ -32,7 +32,8 @@ func _generate_row_array() -> Array:
 		i += 1
 	return row_array
 
-func _setup_next_round(ball : Ball):
+func _setup_next_round():
+	print("does this rund?")
 	# move all the Bricks down
 	for brick in $Bricks.get_children():
 		brick.position.y += space_between_rows
