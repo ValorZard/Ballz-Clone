@@ -5,5 +5,5 @@ enum BALL_STATE {MOVING, STOPPED}
 
 var num_of_balls : int = 1
 
-signal hit_ground(position)
+signal hit_ground(ball)
 signal ball_shoot()

@@ -29,10 +29,10 @@ func _physics_process(delta : float):
 			var body = collision_info.collider
 
 			if body is Brick:
-				body.queue_free()
+				body.on_hit()
 				velocity = velocity.bounce(collision_info.normal)
 			elif body is Ground:
 				current_state = GameManager.BALL_STATE.STOPPED
-				GameManager.emit_signal("hit_ground", self.global_position)
+				GameManager.emit_signal("hit_ground", self)
 			else:
 				velocity = velocity.bounce(collision_info.normal)
