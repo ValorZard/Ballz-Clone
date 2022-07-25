@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "Ball",
+"language": "GDScript",
+"path": "res://Ball/BallController.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Brick",
 "language": "GDScript",
 "path": "res://Level/Brick.gd"
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://Level/Wall.gd"
 } ]
 _global_script_class_icons={
+"Ball": "",
 "Brick": "",
 "GitAPI": "",
 "Ground": "",

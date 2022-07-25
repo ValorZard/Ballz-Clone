@@ -11,9 +11,6 @@ script = ExtResource( 5 )
 [node name="Bricks" type="Node2D" parent="."]
 position = Vector2( 100, 100 )
 
-[node name="Ball" parent="." instance=ExtResource( 1 )]
-position = Vector2( 500, 500 )
-
 [node name="Wall2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 4, 286 )
 scale = Vector2( 1, 10 )
@@ -29,3 +26,6 @@ scale = Vector2( 20, 1 )
 [node name="Wall3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 592, -3 )
 scale = Vector2( 20, 1 )
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+position = Vector2( 500, 500 )

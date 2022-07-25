@@ -17,3 +17,9 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="DirectionLine" type="Line2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+margin_left = -20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 34.0
