@@ -1,5 +1,6 @@
 extends Area2D
 
+class_name BallBlock
 
 # Declare member variables here. Examples:
 # var a = 2

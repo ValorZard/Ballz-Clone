@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Ball/BallController.gd"
 }, {
+"base": "Area2D",
+"class": "BallBlock",
+"language": "GDScript",
+"path": "res://Ball/BallBlock.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Brick",
 "language": "GDScript",
@@ -36,6 +41,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ball": "",
+"BallBlock": "",
 "Brick": "",
 "GitAPI": "",
 "Ground": "",

@@ -16,11 +16,13 @@ var grounded_balls : Array
 func _ready():
 	GameManager.connect("hit_ground", self, "_on_ball_hit_ground")
 	lead_ball = get_tree().get_nodes_in_group("balls")[0]
-
-
+	# there should only be one ball at the start, but just in case
+	for ball in get_tree().get_nodes_in_group("balls"):
+		grounded_balls.append(ball)
 
 func _input(event):
-	if lead_ball.current_state == GameManager.BALL_STATE.STOPPED:
+	# once all balls have been grounded, then we can shoot again
+	if len(grounded_balls) == GameManager.num_of_balls:
 		if event.is_action_pressed("shoot"):
 			var mouse_direction : Vector2 = get_global_mouse_position() - self.position
 			mouse_direction = mouse_direction.normalized()
@@ -30,7 +32,7 @@ func _input(event):
 
 # handle display stuff
 func _process(delta : float):
-	if lead_ball.current_state == GameManager.BALL_STATE.STOPPED:
+	if len(grounded_balls) == GameManager.num_of_balls:
 		# render the direction line
 		$DirectionLine.clear_points()
 		# needs things in local position
@@ -79,16 +81,7 @@ func  _on_ball_hit_ground(ball : Ball):
 		ball.position = lead_ball.position
 	
 	grounded_balls.append(ball)
-	print("Grounded Balls :" + str(len(grounded_balls)) + " Num of Balls :" + str(GameManager.num_of_balls))
+	#print("Grounded Balls :" + str(len(grounded_balls)) + " Num of Balls :" + str(GameManager.num_of_balls))
 	
 	if len(grounded_balls) == GameManager.num_of_balls:
 		GameManager.emit_signal("all_balls_grounded")
-		print("help")
-	
-#	# spawn in new balls for the ones we deleted (oh god I should find a better way)
-#	# this will be called every time a ball hits the ground, so this will automatically account for all the balls
-#	var ball := ball_template.instance()
-#	get_tree().get_root().add_child(ball)
-#	ball.position = self.position
-#
-#	lead_ball = ball

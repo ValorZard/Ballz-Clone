@@ -6,7 +6,7 @@ extends Node2D
 # var b = "text"
 
 # update over time i think
-var current_row : int = 1
+var current_row : int = 0
 export var num_of_blocks_in_row : int = 8
 export var space_between_bricks : int = 120
 export var space_between_rows : int = 100
@@ -33,7 +33,6 @@ func _generate_row_array() -> Array:
 	return row_array
 
 func _setup_next_round():
-	print("does this rund?")
 	# move all the Bricks down
 	for brick in $Bricks.get_children():
 		brick.position.y += space_between_rows
@@ -51,6 +50,7 @@ func _spawn_row():
 			$Bricks.add_child(brick)
 			brick.position = Vector2(space_between_bricks * i, 0)
 			brick.row = current_row
+			brick.set_health(current_row + 1)
 			brick_array.append(brick)
 		i += 1
 	
@@ -73,5 +73,5 @@ func _spawn_row():
 	current_row += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	$RowLabel.text = str(current_row)
