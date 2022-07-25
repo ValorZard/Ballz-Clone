@@ -32,7 +32,7 @@ func _generate_row_array() -> Array:
 		i += 1
 	return row_array
 
-func _setup_next_round():
+func _setup_next_round(new_position : Vector2):
 	# move all the Bricks down
 	for brick in $Bricks.get_children():
 		brick.position.y += space_between_rows
