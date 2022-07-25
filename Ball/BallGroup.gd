@@ -10,6 +10,7 @@ const TIME_BETWEEN_BALLS = 0.1
 # the leader ball of the group
 var lead_ball : Ball
 var ball_template : PackedScene = preload("res://Ball/Ball.tscn")
+var grounded_balls : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,20 +51,30 @@ func _on_ball_shot(mouse_direction : Vector2):
 	
 	
 	for ball in get_tree().get_nodes_in_group("balls"):
-		if ball is Ball:
-			ball.speed = MAX_SPEED
-			ball.direction = mouse_direction
-			ball.velocity = ball.speed * ball.direction
-			ball.current_state = GameManager.BALL_STATE.MOVING
+		ball.speed = MAX_SPEED
+		ball.direction = mouse_direction
+		ball.velocity = ball.speed * ball.direction
+		ball.current_state = GameManager.BALL_STATE.MOVING
+		# remove ball from grounded balls
+		grounded_balls.erase(ball)
 		# give time to shoot out each ball
 		yield(get_tree().create_timer(TIME_BETWEEN_BALLS), "timeout")
+	
 	GameManager.emit_signal("ball_shoot")
 
 func  _on_ball_hit_ground(ball : Ball):
 	# show label text again
 	$Label.visible = true
-	self.position = ball.position
-	#print(new_position)
+	
+	if len(grounded_balls) == 0:
+		# set lead ball as the first ball that touches the ground
+		self.position = ball.position
+		lead_ball = ball
+	else:
+		# set all other ball positiosn that touch the ground to be the position of the "lead ball"
+		ball.position = lead_ball.position
+	
+	grounded_balls.append(ball)
 	
 #	# spawn in new balls for the ones we deleted (oh god I should find a better way)
 #	# this will be called every time a ball hits the ground, so this will automatically account for all the balls
