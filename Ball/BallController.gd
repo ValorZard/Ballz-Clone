@@ -21,10 +21,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
-
 	if current_state == GameManager.BALL_STATE.MOVING:
 		var collision_info = move_and_collide(velocity * delta)
-
+		
 		if collision_info:
 			var body = collision_info.collider
 
@@ -33,6 +32,8 @@ func _physics_process(delta : float):
 				velocity = velocity.bounce(collision_info.normal)
 			elif body is Ground:
 				current_state = GameManager.BALL_STATE.STOPPED
+				# revert move and collide since ground isn't supposed to move
+				move_and_collide(-velocity * delta)
 				GameManager.emit_signal("hit_ground", self)
 			else:
 				velocity = velocity.bounce(collision_info.normal)

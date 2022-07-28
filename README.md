@@ -1,14 +1,8 @@
 # Ballz Gaiden
 
-Current Bug: Game breaks after level 7 or so.
-Usually you can't get a ball count over 4 or 5 before it stops working.
-really weird.
+new bug, trying to make it so that when balls and ball bricks touch the ground, the ground deletes them.
+However, this means that Ground can't be a StaticBody, because static body don't have the right methods to handle it.
+However, making the ground a kinematicBdoy also breaks the code, since it leads to a lot of weird physics bugs.
+Might be best to just turn them all into Area2D.
 
-i think it happens when the level/row text on top and the ball count on the bottom is out of sync.
-Like when there is less balls then rows.
-
-also only happens when you expot the game. Works just fine in the editor
-NEVERMIND IT HAPPENS IN EDITOR AS WELL
-
-figured it out, it happens because the grounded balls and the number of balls get out of sync, and which means that the rest of the game
-can't continue until that desync is fixed
+We can just reimplement all the methods we want

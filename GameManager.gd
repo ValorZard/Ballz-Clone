@@ -1,5 +1,6 @@
 extends Node
 
+const DEBUG = false
 const GROUND_POSITION = 500 # in x coordinates
 enum BALL_STATE {MOVING, STOPPED}
 
