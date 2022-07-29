@@ -1,5 +1,7 @@
 # Ballz Gaiden
 
+TODO: Make a game over screen and a menu
+
 had this idea of like
 the game would "glitch out"
 and the subsequent levels would turn from a simple repetitve mobile game into a puzzle platformer
