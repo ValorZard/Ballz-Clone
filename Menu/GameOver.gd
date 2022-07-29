@@ -18,6 +18,8 @@ func set_score(new_score : int):
 func restart_game():
 	# Remove the current level
 	self.queue_free()
+	# reset level
+	GameManager.reset_game()
 	get_tree().change_scene("res://Level/Root.tscn")
 
 func back_to_title():

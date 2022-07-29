@@ -13,12 +13,14 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	if(self.position.y > GameManager.GROUND_POSITION):
-		self.queue_free()
+#func _physics_process(delta):
+##	if(self.position.y > GameManager.GROUND_POSITION):
+##		self.queue_free()
+#	pass
 
 
 func _on_BallBlock_body_entered(body):
 	if body is Ball:
 		GameManager.num_of_balls += 1
 		self.queue_free()
+	pass

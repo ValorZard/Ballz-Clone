@@ -9,6 +9,9 @@ var health : int = 1
 func _ready():
 	set_health(health)
 
+func get_health():
+	return health
+
 func set_health(h : int):
 	health = h
 	$Label.text = str(health)
@@ -22,8 +25,9 @@ func on_hit():
 func die():
 	queue_free()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	if(self.position.y > GameManager.GROUND_POSITION):
-		self.queue_free()
-		GameManager.emit_signal("brick_hit_ground")
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _physics_process(delta):
+##	if(self.position.y > GameManager.GROUND_POSITION):
+##		self.queue_free()
+##		GameManager.emit_signal("brick_hit_ground")
+#	pass

@@ -74,12 +74,22 @@ func _spawn_row():
 	$Bricks.add_child(ball_block)
 	ball_block.position = old_pos
 	
+	# randomize the "health" of each ball
+	# this is so that the game gets harder the more it goes on
+	for brick in brick_array:
+		var health_multipler : float = rng.randf_range(1, 2)
+		brick.set_health(brick.get_health() * health_multipler)
+	
+	# update row count stuff
 	current_row += 1
+	$RowLabel.text = str(current_row)
+	GameManager.score = current_row
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$RowLabel.text = str(current_row)
+	#$RowLabel.text = str(current_row)
+	pass
 
 func game_over():
-	GameManager.score = current_row
+	$BallGroup.erase_balls_in_group()
 	get_tree().change_scene("res://Menu/GameOver.tscn")

@@ -5,7 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-const MAX_SPEED = 400
+const MAX_SPEED = 750
 const TIME_BETWEEN_BALLS = 0.1
 # the leader ball of the group
 var lead_ball : Ball
@@ -96,5 +96,8 @@ func  _on_ball_hit_ground(ball : Ball):
 		GameManager.emit_signal("all_balls_grounded")
 		if(DEBUG):
 			print("All balls returned to the ground")
-		
-		
+	
+
+func erase_balls_in_group():
+	for ball in get_tree().get_nodes_in_group("balls"):
+		ball.queue_free()
