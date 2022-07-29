@@ -29,12 +29,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
-"base": "Area2D",
+"base": "StaticBody2D",
 "class": "Ground",
 "language": "GDScript",
 "path": "res://Level/Ground.gd"
 }, {
-"base": "Area2D",
+"base": "StaticBody2D",
 "class": "Wall",
 "language": "GDScript",
 "path": "res://Level/Wall.gd"
@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Ballz-Clone"
-run/main_scene="res://Level/Root.tscn"
+run/main_scene="res://Menu/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]

@@ -13,6 +13,9 @@ export var space_between_rows : int = 100
 var brick_template : PackedScene = preload("res://Level/Brick.tscn")
 var ball_block_template : PackedScene = preload("res://Ball/BallBlock.tscn")
 
+# save game over screen here
+var game_over_screen : PackedScene = preload("res://Menu/GameOver.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# spawn initial row
@@ -78,5 +81,5 @@ func _process(delta):
 	$RowLabel.text = str(current_row)
 
 func game_over():
-	print("GAME OVER YEAH!")
-	pass
+	GameManager.score = current_row
+	get_tree().change_scene("res://Menu/GameOver.tscn")
