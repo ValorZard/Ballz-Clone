@@ -20,6 +20,7 @@ func _ready():
 	
 	# if the ball hit the ground, spawn next row
 	GameManager.connect("all_balls_grounded", self, "_setup_next_round")
+	GameManager.connect("brick_hit_ground", self, "game_over")
 
 func _generate_row_array() -> Array:
 	var i := 0
@@ -75,3 +76,7 @@ func _spawn_row():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$RowLabel.text = str(current_row)
+
+func game_over():
+	print("GAME OVER YEAH!")
+	pass

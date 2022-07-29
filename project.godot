@@ -29,12 +29,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
-"base": "StaticBody2D",
+"base": "Area2D",
 "class": "Ground",
 "language": "GDScript",
 "path": "res://Level/Ground.gd"
 }, {
-"base": "StaticBody2D",
+"base": "Area2D",
 "class": "Wall",
 "language": "GDScript",
 "path": "res://Level/Wall.gd"

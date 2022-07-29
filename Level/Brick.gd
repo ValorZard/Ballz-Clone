@@ -23,5 +23,7 @@ func die():
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _physics_process(delta):
+	if(self.position.y > GameManager.GROUND_POSITION):
+		self.queue_free()
+		GameManager.emit_signal("brick_hit_ground")
