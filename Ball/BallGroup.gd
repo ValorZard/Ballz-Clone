@@ -16,21 +16,35 @@ const DEBUG = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if DEBUG:
+		print("Ball Group Initalized")
+	
 	GameManager.connect("hit_ground", self, "_on_ball_hit_ground")
+	
+	# set up lead ball stuff
 	lead_ball = get_tree().get_nodes_in_group("balls")[0]
+	self.position = lead_ball.position
+	
 	# there should only be one ball at the start, but just in case
+	# for this code to properly work, BallGroup has to be lower on the scene tree than the Ball node, since the Ball node didn't properly load yet.
 	for ball in get_tree().get_nodes_in_group("balls"):
 		grounded_balls.append(ball)
+		if DEBUG:
+			print("added grounded ball")
 
 func _input(event):
 	# once all balls have been grounded, then we can shoot again
-	if len(grounded_balls) == len(get_tree().get_nodes_in_group("balls")):
-		if event.is_action_pressed("shoot"):
+	if event.is_action_pressed("shoot"):
+#		if DEBUG:
+#			print("clicked shoot!")
+		if len(grounded_balls) == len(get_tree().get_nodes_in_group("balls")):
 			var mouse_direction : Vector2 = get_global_mouse_position() - self.position
 			mouse_direction = mouse_direction.normalized()
 			_on_ball_shot(mouse_direction)
 			# turn label off now that its moving
 			$Label.visible = false
+			if DEBUG:
+				print("balls shot!")
 
 # handle display stuff
 func _process(delta : float):

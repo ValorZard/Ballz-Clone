@@ -13,7 +13,7 @@ func _ready():
 
 func set_score(new_score : int):
 	score = new_score
-	$ScoreLabel.text = "Score: " + str(score)
+	$ScoreLabel.text = "Rows Cleared: " + str(score)
 
 func restart_game():
 	# Remove the current level

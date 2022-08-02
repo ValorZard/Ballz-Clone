@@ -16,13 +16,16 @@ var current_state = GameManager.BALL_STATE.STOPPED
 
 signal got_brick
 signal hit_ground
+
+const DEBUG = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if DEBUG:
+		print("Initalize Ball")
 	add_to_group("balls")
 
 
 func _physics_process(delta : float):
-
 	if current_state == GameManager.BALL_STATE.MOVING:
 		var collision_info = move_and_collide(velocity * delta)
 
@@ -33,15 +36,23 @@ func _physics_process(delta : float):
 				body.on_hit()
 				velocity = velocity.bounce(collision_info.normal)
 				has_bounced = true
+				if DEBUG:
+					print("Hit brick, has_bounced = true")
 			elif body is Ground:
 				if has_bounced:
 					current_state = GameManager.BALL_STATE.STOPPED
 					GameManager.emit_signal("hit_ground", self)
 					has_bounced = false # reset bounced value
+					if DEBUG:
+						print("Hit ground, sticking ball to it, has_bounced: false")
 				else:
 					# make it so that if it touches the ground and hasn't touched anything else yet, it just bounces off of it
 					velocity = velocity.bounce(collision_info.normal)
-					has_bounced = true
+					#has_bounced = true
+					if DEBUG:
+						print("Hit ground without hitting any other thing, has_bounced still false")
 			else:
 				velocity = velocity.bounce(collision_info.normal)
 				has_bounced = true
+				if DEBUG:
+					print("Probably hit a wall, has_bounced = true")
