@@ -31,3 +31,12 @@ position = Vector2( 369, 384 )
 [node name="NextLevelPortal" parent="." instance=ExtResource( 4 )]
 position = Vector2( 700, 542 )
 next_level_scene = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 138.0
+margin_top = 83.0
+margin_right = 276.0
+margin_bottom = 118.0
+text = "Press R to restart!
+Remember that you can't land on the ground block 
+without boucing off a wall or some other sort of block at least once"
