@@ -24,6 +24,8 @@ func _ready():
 	# set up lead ball stuff
 	lead_ball = get_tree().get_nodes_in_group("balls")[0]
 	self.position = lead_ball.position
+	if DEBUG:
+		print("Ball Group Position ", self.position)
 	
 	# there should only be one ball at the start, but just in case
 	# for this code to properly work, BallGroup has to be lower on the scene tree than the Ball node, since the Ball node didn't properly load yet.
@@ -31,6 +33,18 @@ func _ready():
 		grounded_balls.append(ball)
 		if DEBUG:
 			print("added grounded ball")
+
+func reset_group():
+	# set up lead ball stuff
+	#lead_ball = get_tree().get_nodes_in_group("balls")[0]
+	# remove all balls from grounded in prep to restart
+	grounded_balls.clear()
+	
+	# remove all balls from grounded in prep to restart
+	for ball in get_tree().get_nodes_in_group("balls"):
+		grounded_balls.append(ball)
+		ball.reset_ball()
+		ball.position = self.position
 
 func _input(event):
 	# once all balls have been grounded, then we can shoot again

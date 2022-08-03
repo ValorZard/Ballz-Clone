@@ -5,91 +5,19 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-# update over time i think
-var current_row : int = 0
-export var num_of_blocks_in_row : int = 8
-export var space_between_bricks : int = 120
-export var space_between_rows : int = 100
-var brick_template : PackedScene = preload("res://Level/Brick.tscn")
-var ball_block_template : PackedScene = preload("res://Ball/BallBlock.tscn")
-
-# save game over screen here
-var game_over_screen : PackedScene = preload("res://Menu/GameOver.tscn")
+const DEBUG = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# spawn initial row
-	_spawn_row()
-	
-	# if the ball hit the ground, spawn next row
-	GameManager.connect("all_balls_grounded", self, "_setup_next_round")
-	GameManager.connect("brick_hit_ground", self, "game_over")
+	pass # Replace with function body.
 
-func _generate_row_array() -> Array:
-	var i := 0
-	var row_array : Array = Array()
-	while(i < num_of_blocks_in_row):
-		if (randi() % 2 == 0):
-			row_array.append(true)
-		else:
-			row_array.append(false)
-		i += 1
-	return row_array
-
-func _setup_next_round():
-	# move all the Bricks down
-	for brick in $Bricks.get_children():
-		brick.position.y += space_between_rows
-	
-	_spawn_row()
-
-func _spawn_row():
-	# spawn new row
-	var row_array := _generate_row_array()
-	var i := 0
-	var brick_array := Array()
-	for brick_pos in row_array:
-		if brick_pos == true:
-			var brick := brick_template.instance()
-			$Bricks.add_child(brick)
-			brick.position = Vector2(space_between_bricks * i, 0)
-			brick.row = current_row
-			brick.set_health(current_row + 1)
-			brick_array.append(brick)
-		i += 1
-	
-	# pick random brick from brick array to turn into ball
-	var length : int = len(brick_array)
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var ball_block_pos = rng.randi_range(0, length - 1)
-	
-	# store old position to replace with the ball
-	var old_pos : Vector2 = brick_array[ball_block_pos].position
-	brick_array[ball_block_pos].queue_free()
-	brick_array.pop_at(ball_block_pos)
-	
-	# create ball block and put it in old position
-	var ball_block := ball_block_template.instance()
-	$Bricks.add_child(ball_block)
-	ball_block.position = old_pos
-	
-	# randomize the "health" of each ball
-	# this is so that the game gets harder the more it goes on
-	for brick in brick_array:
-		var health_multipler : float = rng.randf_range(1, 2)
-		brick.set_health(brick.get_health() * health_multipler)
-	
-	# update row count stuff
-	current_row += 1
-	$RowLabel.text = str(current_row)
-	GameManager.score = current_row
+func _input(event):
+	# once all balls have been grounded, then we can shoot again
+	if event.is_action_pressed("restart"):
+		$BallGroup.reset_group()
+		if DEBUG:
+			print("RESTART")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	#$RowLabel.text = str(current_row)
-	pass
-
-func game_over():
-	$BallGroup.erase_balls_in_group()
-	get_tree().change_scene("res://Menu/GameOver.tscn")
+#func _process(delta):
+#	pass

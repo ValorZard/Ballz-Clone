@@ -5,7 +5,7 @@ class_name Ball
 var anchor_point_y = 10
 
 # Movement
-const SPEEDUP = 2
+#const SPEEDUP = 2
 
 export var speed : float = 0
 var direction := Vector2()
@@ -21,9 +21,14 @@ const DEBUG = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if DEBUG:
-		print("Initalize Ball")
+		print("Initalize Ball ", self.position)
 	add_to_group("balls")
 
+func reset_ball():
+	speed = 0
+	direction = Vector2()
+	velocity = Vector2()
+	has_bounced = false # has it hit something yet
 
 func _physics_process(delta : float):
 	if current_state == GameManager.BALL_STATE.MOVING:

@@ -1,21 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Level/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ball/BallGroup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Level/Wall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Level/Level.gd" type="Script" id=5]
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Ground" parent="." instance=ExtResource( 1 )]
 position = Vector2( 42, 305 )
+scale = Vector2( 1, 5 )
+
+[node name="Ground2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 916, 295 )
 scale = Vector2( 1, 5 )
 
 [node name="Ball" parent="." instance=ExtResource( 3 )]
 position = Vector2( 89, 252 )
 
 [node name="Wall" parent="." instance=ExtResource( 4 )]
-position = Vector2( 482, 151 )
+position = Vector2( 512, 515 )
 
 [node name="BallGroup" parent="." instance=ExtResource( 2 )]
 position = Vector2( 468, 513 )
